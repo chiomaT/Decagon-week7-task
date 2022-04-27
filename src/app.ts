@@ -4,7 +4,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-const app = express();
+export const app = express();
 import router from './router/route';
 
 // view engine setup

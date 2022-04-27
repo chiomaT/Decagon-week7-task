@@ -7,11 +7,13 @@ import {
 } from '../controller/companyController';
 
 const router = express.Router();
+
 //get all account
 router.get('/balance', async (req, res) => {
   const balance = await getBalances();
   res.status(200).json(JSON.parse(balance));
 });
+
 //get a certain account
 router.get('/balance/:accountNumber', async (req, res) => {
   const accountNumber = req.params.accountNumber;
@@ -22,6 +24,7 @@ router.get('/balance/:accountNumber', async (req, res) => {
     res.status(200).json(singleAccount);
   }
 });
+
 //create account
 router.post('/create-account', async (req, res) => {
   const handleUser = req.body.balance;

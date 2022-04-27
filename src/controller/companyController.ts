@@ -34,8 +34,6 @@ export const getBalances = () => {
 export const getACertainBalance = async (accountNumber: string) => {
   const data = await readDatabaseTwo();
   const balances = JSON.parse(data);
-  console.log(balances);
-
   const singleBalance = balances.find(
     (data: any) => data.account === accountNumber,
   );
@@ -87,24 +85,18 @@ export const makeTransfer = async (transferDetails: Transactions) => {
   );
 
   if (senderInTheDatabase === -1) {
-    throw new Error('sender account does not exist');
+    return 'sender account does not exist';
   }
 
   let senderAccount = allUsers[senderInTheDatabase];
   let receiverAccount = allUsers[receiverAccountInTheDatabase];
 
-  console.log(
-    senderAccount.balance,
-    receiverAccount.balance,
-    transferDetails.amount,
-  );
-
   if (transferDetails.amount > senderAccount.balance) {
-    return 'insufficient balance';
+    return 'you cannot make this transfer';
   }
 
   if (receiverAccountInTheDatabase === -1) {
-    senderAccount.balance -= transferDetails.amount;
+    return { msg: 'account number does not exist' };
   } else {
     senderAccount.balance -= transferDetails.amount;
     receiverAccount.balance += transferDetails.amount;
